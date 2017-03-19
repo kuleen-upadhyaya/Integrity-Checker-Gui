@@ -2,6 +2,8 @@ package cool.ic.ui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -22,14 +24,14 @@ public class IntegrityCheckerWindow extends JFrame
 	private JLabel lblStatus;
 	private JProgressBar pbrOverall;
 	private JProgressBar pbrIndiv;
-	
+
 	private IntegrityCheckerWindow()
 	{
 		super("Integrity Checker");
 		
 		setLayout(new BorderLayout());
 
-		createNorthComponents();
+		createComponents();
 		
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,7 +39,7 @@ public class IntegrityCheckerWindow extends JFrame
 		setLocationRelativeTo(null);
 	}
 
-	private void createNorthComponents() 
+	private void createComponents() 
 	{
 		JPanel pnlNorth = new JPanel(new GridLayout(2,1));
 		
@@ -76,8 +78,10 @@ public class IntegrityCheckerWindow extends JFrame
 		pbrIndiv.setStringPainted(true);
 		pbrOverall.setStringPainted(true);
 		
-		pnlStatus.add(pbrOverall);
-		pnlStatus.add(pbrIndiv);
+		pnlProgress.add(pbrOverall);
+		pnlProgress.add(pbrIndiv);
+		
+		pnlStatus.add(pnlProgress);
 		
 		pnlSouth.add(pnlStatus);
 		
@@ -88,7 +92,20 @@ public class IntegrityCheckerWindow extends JFrame
 
 	private void addActionListeners() 
 	{
-		
+		btnStartCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				if (btnStartCancel.getText().equals("Start"))
+				{
+					btnStartCancel.setText("Cancel");
+				}
+				else if (btnStartCancel.getText().equals("Cancel"))
+				{
+					btnStartCancel.setText("Start");
+				}
+			}
+		});
 	}
 
 	public static void start() 
